@@ -56,7 +56,26 @@ handleDeleteCard = (cardId) => {
 // ADD RANDOM CARD BUTTON //
 
 handleAddCard = (listId) => {
-  
+  const newCard = newRandomCard()
+
+  const newLists = this.state.store.lists.map(list => {
+    if (list.id === listId) {
+      return {
+        ...list,
+        cardIds: [...list.cardIds, newCard.id]
+      };
+    }
+    return list;
+  })
+  this.setState({
+    store: {
+      lists: newLists,
+      allCards: {
+        ...this.state.store.allCards,
+        [newCard.id]: newCard
+      }
+    }
+  })
 }
 
 
